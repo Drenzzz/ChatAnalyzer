@@ -1,0 +1,9 @@
+# Chat is stored locally only. This plugin does not send data over the network.
+enabled: true
+
+# A full queue drops new records instead of slowing down chat processing.
+queue-capacity: 2000
+
+# Files rotate automatically at midnight UTC.
+output-directory: data
+file-prefix: chat

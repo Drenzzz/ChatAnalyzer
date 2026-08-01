@@ -4,3 +4,14 @@ main: id.chat.analyzer.ChatAnalyzerPlugin
 api-version: '1.19'
 author: YourName
 description: Minecraft chat dataset collector.
+
+commands:
+  chatanalyzer:
+    description: Controls the ChatAnalyzer collector.
+    usage: /chatanalyzer <start|stop|status|reload>
+    permission: chatanalyzer.admin
+
+permissions:
+  chatanalyzer.admin:
+    description: Allows managing the ChatAnalyzer collector.
+    default: op
