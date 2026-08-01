@@ -1,0 +1,6 @@
+name: ChatAnalyzer
+version: 0.1.0
+main: id.chat.analyzer.ChatAnalyzerPlugin
+api-version: '1.19'
+author: YourName
+description: Minecraft chat dataset collector.
