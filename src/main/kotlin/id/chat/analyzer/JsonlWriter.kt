@@ -38,6 +38,8 @@ class JsonlWriter(
 
     fun droppedMessages(): Long = dropped.get()
 
+    fun outputDirectory(): Path = outputDirectory
+
     private fun writeUntilClosed() {
         while (accepting || queue.isNotEmpty()) {
             val record = queue.poll(1, TimeUnit.SECONDS) ?: continue

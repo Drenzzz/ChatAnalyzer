@@ -4,10 +4,12 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.plugin.java.JavaPlugin
 import java.time.Instant
+import java.util.concurrent.atomic.AtomicBoolean
 
 class ChatAnalyzerPlugin : JavaPlugin() {
     private lateinit var jsonlWriter: JsonlWriter
     private var collectionEnabled = true
+    private val firstCaptureLogged = AtomicBoolean(false)
 
     override fun onEnable() {
         saveDefaultConfig()
@@ -20,6 +22,7 @@ class ChatAnalyzerPlugin : JavaPlugin() {
         )
         ChatListener(this).register()
         logger.info("ChatAnalyzer is enabled. Collection: $collectionEnabled")
+        logger.info("ChatAnalyzer output directory: ${jsonlWriter.outputDirectory()}")
     }
 
     override fun onDisable() {
@@ -29,6 +32,9 @@ class ChatAnalyzerPlugin : JavaPlugin() {
 
     fun recordChat(message: String) {
         if (!collectionEnabled) return
+        if (firstCaptureLogged.compareAndSet(false, true)) {
+            logger.info("ChatAnalyzer captured the first chat event.")
+        }
         jsonlWriter.enqueue(
             ChatRecord(
                 message = message,
@@ -54,7 +60,8 @@ class ChatAnalyzerPlugin : JavaPlugin() {
             }
             "status" -> sender.sendMessage(
                 "ChatAnalyzer: ${if (collectionEnabled) "collecting" else "stopped"}; " +
-                    "dropped messages: ${jsonlWriter.droppedMessages()}."
+                    "dropped messages: ${jsonlWriter.droppedMessages()}; " +
+                    "output: ${jsonlWriter.outputDirectory()}."
             )
             "reload" -> {
                 reloadConfig()

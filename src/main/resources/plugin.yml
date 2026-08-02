@@ -1,5 +1,5 @@
 name: ChatAnalyzer
-version: 0.1.0
+version: 0.1.1
 main: id.chat.analyzer.ChatAnalyzerPlugin
 api-version: '1.19'
 author: YourName
