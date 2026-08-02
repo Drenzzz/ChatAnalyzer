@@ -25,4 +25,5 @@ The collector writes files under `plugins/ChatAnalyzer/data/`, one file per UTC 
 - `/chatanalyzer start`
 - `/chatanalyzer stop`
 - `/chatanalyzer status`
+- `/chatanalyzer export` — membuat array `.json` yang lebih rapi dari semua file `.jsonl`.
 - `/chatanalyzer reload`

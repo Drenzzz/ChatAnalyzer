@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class ChatAnalyzerPlugin : JavaPlugin() {
     private lateinit var jsonlWriter: JsonlWriter
+    private lateinit var prettyJsonExporter: PrettyJsonExporter
     private var collectionEnabled = true
     private val firstCaptureLogged = AtomicBoolean(false)
 
@@ -20,6 +21,7 @@ class ChatAnalyzerPlugin : JavaPlugin() {
             filePrefix = config.getString("file-prefix", "chat")!!,
             queueCapacity = config.getInt("queue-capacity", 2000).coerceAtLeast(1),
         )
+        prettyJsonExporter = PrettyJsonExporter()
         ChatListener(this).register()
         logger.info("ChatAnalyzer is enabled. Collection: $collectionEnabled")
         logger.info("ChatAnalyzer output directory: ${jsonlWriter.outputDirectory()}")
@@ -63,12 +65,16 @@ class ChatAnalyzerPlugin : JavaPlugin() {
                     "dropped messages: ${jsonlWriter.droppedMessages()}; " +
                     "output: ${jsonlWriter.outputDirectory()}."
             )
+            "export" -> {
+                val exported = prettyJsonExporter.exportAll(jsonlWriter.outputDirectory())
+                sender.sendMessage("ChatAnalyzer exported $exported JSON file(s).")
+            }
             "reload" -> {
                 reloadConfig()
                 collectionEnabled = config.getBoolean("enabled", true)
                 sender.sendMessage("Configuration reloaded. Restart to apply queue and output settings.")
             }
-            else -> sender.sendMessage("Usage: /$label <start|stop|status|reload>")
+            else -> sender.sendMessage("Usage: /$label <start|stop|status|export|reload>")
         }
         return true
     }

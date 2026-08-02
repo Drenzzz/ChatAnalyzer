@@ -8,7 +8,7 @@ description: Minecraft chat dataset collector.
 commands:
   chatanalyzer:
     description: Controls the ChatAnalyzer collector.
-    usage: /chatanalyzer <start|stop|status|reload>
+    usage: /chatanalyzer <start|stop|status|export|reload>
     permission: chatanalyzer.admin
 
 permissions:
