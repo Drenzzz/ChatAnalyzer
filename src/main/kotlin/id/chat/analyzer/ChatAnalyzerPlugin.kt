@@ -18,7 +18,7 @@ class ChatAnalyzerPlugin : JavaPlugin() {
             filePrefix = config.getString("file-prefix", "chat")!!,
             queueCapacity = config.getInt("queue-capacity", 2000).coerceAtLeast(1),
         )
-        server.pluginManager.registerEvents(ChatListener(this), this)
+        ChatListener(this).register()
         logger.info("ChatAnalyzer is enabled. Collection: $collectionEnabled")
     }
 
