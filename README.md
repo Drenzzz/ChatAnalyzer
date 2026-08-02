@@ -5,11 +5,20 @@ Kotlin collector for Spigot, Paper, and Purpur. It saves local JSON Lines data w
 
 ## Build
 
+Windows PowerShell:
+
 ```powershell
-.\gradlew.bat build
+.\gradlew.bat clean build
 ```
 
-Upload `build/libs/ChatAnalyzer-plugin-0.1.1-all.jar` to the server's `plugins/`
+Linux/macOS (bash):
+
+```bash
+chmod +x build.sh
+./build.sh
+```
+
+Upload `build/libs/ChatAnalyzer-plugin-1.0.0-all.jar` to the server's `plugins/`
 directory and restart the server.
 
 ## Output
